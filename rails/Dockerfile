@@ -40,9 +40,9 @@ USER rails
 #Install rbenv as rails 
 RUN \
       git clone https://github.com/sstephenson/rbenv.git ~/.rbenv \
-  &&  echo 'export PATH="$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"' >> ~/.bashrc \
-  &&  echo 'eval "$(rbenv init -)"' >> ~/.bashrc \
-  &&  echo 'export PATH="$HOME/.rbenv/bin:/usr/bin:/bin:$PATH"' >> ~/.bashrc 
+  &&  echo 'export PATH="$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"' | tee -a ~/.bashrc ~/.profile  \
+  &&  echo 'eval "$(rbenv init -)"' | tee -a ~/.bashrc ~/.profile \
+  &&  echo 'export PATH="$HOME/.rbenv/bin:/usr/bin:/bin:$PATH"' | tee -a ~/.bashrc ~/.profile
 
 # Install rbenv plugin: ruby-build for global rbenv installation
 # RUN mkdir /usr/local/rbenv/plugins
@@ -52,13 +52,13 @@ RUN \
 RUN \
       mkdir ~/.rbenv/plugins \
   &&  git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build \
-  &&  echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bashrc 
+  &&  echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' | tee -a ~/.bashrc ~/.profile 
 
 # do not copy gem package documentation
 RUN echo "gem: --no-ri --no-rdoc" > ~/.gemrc
 
 #restart shell
-RUN exec  ~/.bashrc
+RUN .  ~/.bashrc
 
 # ENV RBENV_ROOT /usr/local/rbenv
 # ENV PATH $RBENV_ROOT/bin:$RBENV_ROOT/shims:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -75,7 +75,7 @@ RUN rbenv rehash
 
 ## Install Rails dependencies
 RUN \
-  &&  sudo apt-get install -y software-properties-common  \
+      sudo apt-get install -y software-properties-common  \
   &&  sudo add-apt-repository ppa:chris-lea/node.js  \
   &&  sudo apt-get update  \
   &&  sudo apt-get install -y nodejs  
