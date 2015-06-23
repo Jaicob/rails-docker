@@ -27,8 +27,8 @@ RUN sudo apt-get install -y libxml2-dev libxslt1-dev
 RUN mkdir /home/rails/my-app
 COPY . /home/rails/my-app
 WORKDIR /home/rails/my-app
-# RUN \
-# 	sudo chown -R rails /home/rails/my-app  
+RUN \
+	sudo chown -R rails /home/rails/my-app  
 # 	#echo 'export SECRET_KEY_BASE=`rake secret`' | tee -a ~/.bashrc ~/.profile  \
 
 # install gems with binstubs 
