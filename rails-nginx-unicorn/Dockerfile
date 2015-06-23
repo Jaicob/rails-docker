@@ -27,7 +27,9 @@ RUN sudo apt-get install -y libxml2-dev libxslt1-dev
 RUN mkdir /home/rails/my-app
 COPY . /home/rails/my-app
 WORKDIR /home/rails/my-app
-RUN sudo chown -R rails /home/rails/my-app
+# RUN \
+# 	sudo chown -R rails /home/rails/my-app  
+# 	#echo 'export SECRET_KEY_BASE=`rake secret`' | tee -a ~/.bashrc ~/.profile  \
 
 # install gems with binstubs 
 RUN \
@@ -42,13 +44,16 @@ RUN \
 COPY unicorn.rb /etc/my-app/unicorn.rb
 COPY unicorn_init.sh /etc/init.d/unicorn
 
-#Add Run script
+# Add entrypoint script
 COPY app_entrypoint.sh /etc/my-app/app_entrypoint.sh
 
 # Set environment variables
 ENV RAILS_ENV production
+
+#expose port 80
 EXPOSE 80
 
+# Default command to run if none is provided
 CMD /etc/my-app/app_entrypoint.sh
 
 

@@ -16,8 +16,17 @@ trap "pkill unicorn_rails ; exit " SIGINT SIGTERM SIGKILL
 echo "Stopping  unicorn_rails, if already running"
 pkill unicorn_rails
 
-echo "cleaning tmp files"
-rm -rf /home/rails/my-app/tmp/*
+# echo "cleaning tmp files"
+# rm -rf /home/rails/my-app/tmp/*
+mkdir ./shared && \
+mkdir ./tmp/pids && \
+mkdir ./tmp/sessions && \
+mkdir ./tmp/sockets && \
+ln -s /home/rails/my-app/tmp/cache /home/rails/my-app/shared/cache && \
+ln -s /home/rails/my-app/tmp/pids /home/rails/my-app/shared/pids && \
+ln -s /home/rails/my-app/tmp/sessions /home/rails/my-app/shared/sessions && \
+ln -s /home/rails/my-app/tmp/sockets /home/rails/my-app/shared/sockets && \
+ln -s /home/rails/my-app/log /home/rails/my-app/shared/log 
 
 echo "Restart Reverse Proxy"
 sudo service nginx reload && sudo service nginx restart
