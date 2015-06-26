@@ -16,8 +16,8 @@ trap "pkill unicorn_rails ; exit " SIGINT SIGTERM SIGKILL
 echo "Stopping  unicorn_rails, if already running"
 pkill unicorn_rails
 
-echo "cleaning tmp files"
-rm -rf /home/rails/my-app/tmp/*
+# echo "Cleaning tmp files"
+# rm -rf /home/rails/my-app/tmp/*
 mkdir ./shared && \
 mkdir ./tmp/pids && \
 mkdir ./tmp/sessions && \
@@ -28,9 +28,9 @@ ln -s /home/rails/my-app/tmp/sessions /home/rails/my-app/shared/sessions && \
 ln -s /home/rails/my-app/tmp/sockets /home/rails/my-app/shared/sockets && \
 ln -s /home/rails/my-app/log /home/rails/my-app/shared/log 
 
-echo "Restart Reverse Proxy"
-sudo service nginx reload && sudo service nginx restart
+echo "Setting up database"
+RAILS_ENV=production rake db:create db:migrate
 
-echo "Running unicorn"
-sudo service unicorn start
+# echo "Running unicorn"
+
 #bundle exec unicorn_rails -c /etc/web-app/unicorn.rb -E $RAILS_ENV -d
