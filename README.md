@@ -20,6 +20,10 @@ Configuring
 Troubleshooting
 ----
 
+Tips & Tricks
+----
+- After using `Docker run` you can simply start that container again using `Docker start [CONTAINER]` this saves you disk space since each time you use the `Docker Run` command it creates a new container 
+
 Contributing
 -----
 
