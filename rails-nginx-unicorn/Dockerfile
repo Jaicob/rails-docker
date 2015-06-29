@@ -46,7 +46,7 @@ COPY unicorn.rb /etc/my-app/unicorn.rb
 COPY unicorn_init.sh /etc/init.d/unicorn
 
 # Add entrypoint script TODO change to say setup
-COPY app_entrypoint.sh /etc/my-app/app_entrypoint.sh
+COPY setup.sh /etc/my-app/setup.sh
 
 # Set environment variables
 ENV RAILS_ENV production

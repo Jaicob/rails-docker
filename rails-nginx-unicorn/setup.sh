@@ -8,7 +8,6 @@ export SECRET_KEY_BASE=$SECRET_KEY_BASE
 
 ## Setting DB
 DB_NAME="my_app_${RAILS_ENV}"
-#DATABASE_URL="mysql2://root:root@localhost/${DB_NAME}"
 
 # Trap sigkill and sigterm: otherwise dockr stop/start will complain for stale unicorn pid
 trap "pkill unicorn_rails ; exit " SIGINT SIGTERM SIGKILL
@@ -16,8 +15,7 @@ trap "pkill unicorn_rails ; exit " SIGINT SIGTERM SIGKILL
 echo "Stopping  unicorn_rails, if already running"
 pkill unicorn_rails
 
-# echo "Cleaning tmp files"
-# rm -rf /home/rails/my-app/tmp/*
+echo "Setting up tmp & shared directories"
 mkdir ./shared && \
 mkdir ./tmp/pids && \
 mkdir ./tmp/sessions && \
@@ -31,6 +29,3 @@ ln -s /home/rails/my-app/log /home/rails/my-app/shared/log
 echo "Setting up database"
 RAILS_ENV=production rake db:create db:migrate
 
-# echo "Running unicorn"
-
-#bundle exec unicorn_rails -c /etc/web-app/unicorn.rb -E $RAILS_ENV -d
