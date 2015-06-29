@@ -1,13 +1,17 @@
 FROM jaicob/rails:base
 MAINTAINER jaicob(jaicob@icloud.com)
 
-# Install basics
+# Install basics and postgres
 RUN \
-	sudo apt-get update -qq \
- && sudo apt-get install -y build-essential vim
+	sudo apt-get update -qq && \
+    sudo apt-get install -y build-essential vim && \
+    sudo apt-get install -y libpq-dev
 
-# For postgres
-RUN sudo apt-get install -y libpq-dev
+# Install supervisor
+RUN sudo apt-get install -y supervisor 
+
+# Configure supervisor
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Install Nginx.
 RUN \
@@ -23,25 +27,25 @@ COPY nginx.conf /etc/nginx/nginx.conf
 # For nokogiri
 RUN sudo apt-get install -y libxml2-dev libxslt1-dev
 
-# Install app source
+# Install application source
 RUN mkdir /home/rails/my-app
-COPY . /home/rails/my-app
 WORKDIR /home/rails/my-app
-RUN sudo chown -R rails /home/rails/my-app  
+ONBUILD COPY . /home/rails/my-app
+ONBUILD RUN sudo chown -R rails /home/rails/my-app  
 
 # Install gems with binstubs 
-RUN \
-	  bundle update && \
-   	bundle install && \
-   	bundle binstubs unicorn && \
-   	rbenv rehash && \
+ONBUILD RUN \
+	bundle update && \
+ 	bundle install && \
+ 	bundle binstubs unicorn && \
+ 	rbenv rehash && \
     RAILS_ENV=production bundle exec rake assets:precompile --trace
 
 # Configure unicorn
 COPY unicorn.rb /etc/my-app/unicorn.rb
 COPY unicorn_init.sh /etc/init.d/unicorn
 
-# Add entrypoint script
+# Add entrypoint script TODO change to say setup
 COPY app_entrypoint.sh /etc/my-app/app_entrypoint.sh
 
 # Set environment variables
@@ -50,7 +54,5 @@ ENV RAILS_ENV production
 # Expose port 80
 EXPOSE 80
 
-# Default command to run if none is provided
-CMD /etc/my-app/app_entrypoint.sh
 
 
