@@ -11,7 +11,7 @@ RUN \
     apt-get install -y software-properties-common && \
     apt-get install -y byobu curl git htop man unzip vim wget && \
     apt-get install -y libffi-dev && \
-    rm -rf /var/lib/apt/lists/* 
+    rm -rf /var/lib/apt/lists/*
 
 # Install some dependencies
 RUN apt-get update
@@ -26,7 +26,7 @@ RUN \
 # Swich to user, Rails
 USER rails
 
-# Install rbenv as rails 
+# Install rbenv as rails
 RUN \
     git clone https://github.com/sstephenson/rbenv.git ~/.rbenv && \
     echo 'export PATH="$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"' | tee -a ~/.bashrc ~/.profile && \
@@ -37,7 +37,7 @@ RUN \
 RUN \
     mkdir ~/.rbenv/plugins && \
     git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build && \
-    echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' | tee -a ~/.bashrc ~/.profile 
+    echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' | tee -a ~/.bashrc ~/.profile
 
 # Do not copy gem package documentation
 RUN echo "gem: --no-ri --no-rdoc" > ~/.gemrc
@@ -46,12 +46,12 @@ RUN echo "gem: --no-ri --no-rdoc" > ~/.gemrc
 RUN . ~/.bashrc
 
 # Set Env path for Rbenv
-ENV RBENV_ROOT /home/rails/.rbenv 
+ENV RBENV_ROOT /home/rails/.rbenv
 ENV PATH $RBENV_ROOT/bin:$RBENV_ROOT/shims:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$HOME/.rbenv/bin:/usr/bin:/bin:$PATH
 
 # Install ruby
-RUN rbenv install 2.2.0
-RUN rbenv global 2.2.0
+RUN rbenv install 2.2.2
+RUN rbenv global 2.2.2
 
 # Install bundler
 RUN gem install bundler
@@ -62,8 +62,8 @@ RUN \
     sudo apt-get install -y software-properties-common && \
     sudo add-apt-repository ppa:chris-lea/node.js && \
     sudo apt-get update && \
-    sudo apt-get install -y nodejs  
-  
+    sudo apt-get install -y nodejs
+
 # Install Rails
-RUN gem install rails --version=4.2.1
+RUN gem install rails --version=4.2.2
 RUN rbenv rehash
