@@ -1,0 +1,33 @@
+# Docker-compose is useful for the development of your application. This automatically spins up
+# a container based off the Dockerfile in the working dir and links it to a postgres instance. 
+# Modify as necessary to suit your needs
+
+web:
+  build: .
+  command: bundle exec rails s -p 3000 -b '0.0.0.0'
+  volumes:
+    - .:/home/rails/my-app
+  ports:
+    - "3000:3000"
+  links:
+    - db
+  env_file:
+    - '.env.web'
+  environment:
+    - RAILS_ENV=development
+db:
+  image: postgres:latest
+  ports:
+    - "5432:5432"
+  env_file:
+    - '.env.db'
+
+
+
+# Regular command                |  Docker-compose command -p 3000 -b '0.0.0.0'
+#---------------------------------------------------------------------------------------
+# bundle install                 |  docker-compose run web bundle install
+# rails s                        |  docker-compose run web rails s
+# rspec spec/path/to/spec.rb     |  docker-compose run web rspec spec/path/to/spec.rb
+# RAILS_ENV=test rake db:create  |  docker-compose run -e RAILS_ENV=test web rake db:create
+# tail -f log/development.log    |  docker-compose run web tail -f log/development.log  

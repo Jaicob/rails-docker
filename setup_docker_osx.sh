@@ -5,6 +5,7 @@ boot2docker init
 boot2docker up
 brew install docker
 docker version
+sudo pip install -U docker-compose
 
 
 # Some handy aliases, if not using zsh just modify where they are echoed to

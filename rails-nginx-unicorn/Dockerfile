@@ -35,7 +35,6 @@ ONBUILD RUN sudo chown -R rails /home/rails/my-app
 
 # Install gems with binstubs 
 ONBUILD RUN \
-	bundle update && \
  	bundle install && \
  	bundle binstubs unicorn && \
  	rbenv rehash && \
