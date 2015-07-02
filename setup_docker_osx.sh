@@ -3,13 +3,14 @@ brew update
 brew install boot2docker
 boot2docker init
 boot2docker up
-brew install docker
+eval "$(boot2docker shellinit)"
 docker version
-sudo pip install -U docker-compose
+brew install docker-compose
 
 
 # Some handy aliases, if not using zsh just modify where they are echoed to
 
+echo "Adding Aliases"
 # Shortcut for docker-compose
 echo 'alias dc='\''docker-compose'\''' >> ~/.zshrc
 # Clean docker containers

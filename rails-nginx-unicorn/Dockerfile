@@ -15,17 +15,22 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Install Nginx.
 RUN \
-  sudo add-apt-repository -y ppa:nginx/stable && \
-  sudo apt-get update && \
-  sudo apt-get install -y nginx && \
-  sudo chown -R www-data:www-data /var/lib/nginx
+	sudo add-apt-repository -y ppa:nginx/stable && \
+	sudo apt-get update && \
+	sudo apt-get install -y nginx && \
+	sudo chown -R www-data:www-data /var/lib/nginx
 
 # Configure nginx
 COPY nginx-app-site.conf /etc/nginx/sites-enabled/default
 COPY nginx.conf /etc/nginx/nginx.conf
 
-# For nokogiri
-RUN sudo apt-get install -y libxml2-dev libxslt1-dev
+# For external libraries
+RUN sudo apt-get install -y \
+	libxml2-dev \
+	libxslt1-dev \
+	imagemagick \
+	libmagickcore-dev \
+	libmagickwand-dev
 
 # Install application source
 RUN mkdir /home/rails/my-app
@@ -35,7 +40,7 @@ ONBUILD RUN sudo chown -R rails /home/rails/my-app
 
 # Install gems with binstubs 
 ONBUILD RUN \
- 	bundle install && \
+ 	bundle install --without nothing && \
  	bundle binstubs unicorn && \
  	rbenv rehash && \
     RAILS_ENV=production bundle exec rake assets:precompile --trace
