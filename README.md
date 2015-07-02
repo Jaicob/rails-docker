@@ -1,5 +1,5 @@
 # rails-docker
-Everything you need to start developing and deploying your rails apps with Docker
+Everything you need to start developing and deploying your rails apps with Docker.
 
 This repo exists to facilitate the process of setting up your project to develop and deploy using docker. Currently the project assumes you are using Rails 4.2.1, Ruby 2.2.0, Postgres, Unicorn and Nginx. The Dockerfiles can be modified to change this or it can be requested to add any additional versions/technologies to the project.
 
@@ -30,7 +30,7 @@ On Windows systems, visit https://docs.docker.com/windows/started/ to get starte
 ####Mac OS X
 On Mac OS X (10.6 or later), visit https://docs.docker.com/mac/started/ to get started with download and installation.
 
-Additionally on Mac OS X with zsh, you can run the setup script below which does the following. This assumes you have virtual box already. You can modify the script to have the alias written to wherever you like to keep your aliases.
+Additionally, on Mac OS X with zsh, you can run the setup script below which does the following. This assumes you have virtual box already. You can modify the script to have the alias written to wherever you like to keep your aliases.
 - Installs/starts boot2docker
 - Installs Docker
 - Installs docker-compose
@@ -72,7 +72,7 @@ In order to run just one command on a container you use the `docker-compose run`
 
 ####Opening a shell 
 
-Sometimes you may want to do more tha run a one off command. In these cases it is also possible for you to open a shell within your running container. There are several ways to accomplish this.
+Sometimes you may want to do more than just run a one off command. In these cases, it is also possible for you to open a shell within your running container. There are several ways to accomplish this.
 
 ######With docker-compose
 `docker-compose run web /bin/bash`
@@ -94,27 +94,27 @@ These get rid of the above mentioned images and containers respectively.
 
 Production
 ----
-Everyone's setup for production varies but using this setup you should be able to simply run your dockerized application wherever you plan on hosting you application so long as it is suited to run docker. Nginx and unicorn are run using supervisor which you can also easily configure yourself.
+Everyone's hosting for production varies, but using this setup you should be able to simply run your dockerized application wherever you plan on hosting your application, so long as it is able to run docker. Nginx and unicorn are run using supervisor which you can also easily configure yourself.
 
 
 Configuring
 ----
-Within the [example dockerfile](https://github.com/Jaicob/rails-docker/blob/master/Dockerfile.example) I indicated how you would provide your own configurations for nginx, unicorn and your own setup scripts. When your writing your dockerfile it would look like so.
+Within the [example dockerfile](https://github.com/Jaicob/rails-docker/blob/master/Dockerfile.example) I indicated how you would provide your own configurations for nginx, unicorn and your own setup scripts. When you're writing you would include these lines for your own configs.
 
-#####Unicorn configurations
+#####Unicorn 
 ```
 # Place custom unicorn configs here
 ADD config/unicorn.rb /etc/my-app/config/unicorn.rb				
 ADD unicorn_init.sh /etc/init.d/unicorn
 ```
 
-#####Nginx configurations
+#####Nginx 
 ```
 # Place custom nginx configs here
 COPY nginx-app-site.conf /etc/nginx/sites-enabled/default
 COPY nginx.conf /etc/nginx/nginx.conf
 ```
-#####Supervisor configurations
+#####Supervisor 
 ```
 # Configure supervisor
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
@@ -131,7 +131,7 @@ Troubleshooting
 ----
 
 #####Weird unwarranted network issues
-- First line of defense is to simply turn it off then on again. Boot2docker can be wonky sometimes so when I get strange network areas the following commands are used to restart it. I would recommend aliasing this.
+- First line of defense is to simply turn it off then on again. Boot2docker can be wonky sometimes so when I get strange network errors the following commands are used to restart it. I would recommend aliasing this.
 
 ```
 boot2docker stop
@@ -139,7 +139,7 @@ boot2docker start
 boot2docker shellinit
 ```
 
-- Next up is may be an issue with Boot2docker concerning certificate validation in version 1.7.0. You can find the issue [here](https://github.com/boot2docker/boot2docker/issues/938) and a proposed fix [here](https://gist.github.com/garthk/d5a17007c277aa5c76de).
+- Next up, it may be an issue with Boot2docker concerning certificate validation in version 1.7.0. You can find the issue [here](https://github.com/boot2docker/boot2docker/issues/938) and a proposed fix [here](https://gist.github.com/garthk/d5a17007c277aa5c76de).
 
 
 Tips & Tricks
