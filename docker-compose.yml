@@ -1,5 +1,5 @@
 # Docker-compose is useful for the development of your application. This automatically spins up
-# a container based off the Dockerfile in the working dir and links it to a postgres instance. 
+# a container based off the Dockerfile in the working dir and links it to a postgres instance.
 # Modify as necessary to suit your needs
 
 web:
@@ -30,4 +30,4 @@ db:
 # rails s                        |  docker-compose run web rails s
 # rspec spec/path/to/spec.rb     |  docker-compose run web rspec spec/path/to/spec.rb
 # RAILS_ENV=test rake db:create  |  docker-compose run -e RAILS_ENV=test web rake db:create
-# tail -f log/development.log    |  docker-compose run web tail -f log/development.log  
+# tail -f log/development.log    |  docker-compose run web tail -f log/development.log
