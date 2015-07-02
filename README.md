@@ -56,6 +56,8 @@ After that simply use the commands below to start and stop the container you bui
 
 `docker-compose stop` and `docker-compose-start` to start and stop your project
 
+You can then access your project via boot2docker's ip which is found with `boot2docker ip 2` and whatever port your services are running on. If you used the example docker-compose.yml that is port 3000.
+
 Docker allows you to mount volumes so this means that changes you make on your local machine will also be reflected in your docker container and vis versa if you so specify. This was shown in the example [docker-compose.yml](https://github.com/Jaicob/rails-docker/blob/master/docker-compose.yml) 
 
 ####Running one off commands 
@@ -137,7 +139,9 @@ Troubleshooting
 boot2docker stop
 boot2docker start
 boot2docker shellinit
+exec $SHELL
 ```
+
 
 - Next up, it may be an issue with Boot2docker concerning certificate validation in version 1.7.0. You can find the issue [here](https://github.com/boot2docker/boot2docker/issues/938) and a proposed fix [here](https://gist.github.com/garthk/d5a17007c277aa5c76de).
 
@@ -146,6 +150,7 @@ Tips & Tricks
 ----
 - After using `Docker run` you can simply start that container again using `Docker start [CONTAINER]` this saves you disk space since each time you use the `Docker Run` command it creates a new container
 
+- In development you access your running containers through boot2docker's ip address. For convenience I would add this to your hosts file
 
 Contributing
 -----
