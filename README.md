@@ -74,14 +74,8 @@ In order to run just one command on a container you use the `docker-compose run`
 
 ####Opening a shell 
 
-Sometimes you may want to do more than just run a one off command. In these cases, it is also possible for you to open a shell within your running container. There are several ways to accomplish this.
+Sometimes you may want to do more than just run a one off command. In these cases, it is also possible for you to open a shell within your running container.
 
-######With docker-compose
-`docker-compose run web /bin/bash`
-
-Note: you can repalce "web" with whatever docker-compose task names you have in your docker-compose.yml 
-
-######With just docker
 `docker exec -it [NAME OR ID OF CONTAINER] /bin/bash`
 
 ####Cleaning up
