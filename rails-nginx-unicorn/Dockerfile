@@ -5,7 +5,7 @@ MAINTAINER jaicob(jaicob@icloud.com)
 RUN \
 	sudo apt-get update -qq && \
     sudo apt-get install -y build-essential vim && \
-    sudo apt-get install -y libpq-dev
+    sudo apt-get install -y libpq-dev 
 
 # Install supervisor
 RUN sudo apt-get install -y supervisor 
@@ -25,12 +25,14 @@ COPY nginx-app-site.conf /etc/nginx/sites-enabled/default
 COPY nginx.conf /etc/nginx/nginx.conf
 
 # For external libraries
+RUN sudo apt-get update -qq
 RUN sudo apt-get install -y \
 	libxml2-dev \
 	libxslt1-dev \
 	imagemagick \
 	libmagickcore-dev \
-	libmagickwand-dev
+	libmagickwand-dev \
+	libqt4-dev
 
 # Install application source
 RUN mkdir /home/rails/my-app
