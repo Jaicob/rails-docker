@@ -24,7 +24,7 @@ db:
 
 
 
-# Regular command                |  Docker-compose command -p 3000 -b '0.0.0.0'
+# Regular command                |  Docker-compose command
 #---------------------------------------------------------------------------------------
 # bundle install                 |  docker-compose run web bundle install
 # rails s                        |  docker-compose run web rails s
