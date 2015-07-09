@@ -1,4 +1,4 @@
-FROM jaicob/rails:base
+FROM jaicob/rails
 MAINTAINER jaicob(jaicob@icloud.com)
 
 # Install basics and postgres
@@ -25,14 +25,10 @@ COPY nginx-app-site.conf /etc/nginx/sites-enabled/default
 COPY nginx.conf /etc/nginx/nginx.conf
 
 # For external libraries
-RUN sudo apt-get update -qq
-RUN sudo apt-get install -y \
-	libxml2-dev \
-	libxslt1-dev \
-	imagemagick \
-	libmagickcore-dev \
-	libmagickwand-dev \
-	libqt4-dev
+# RUN sudo apt-get update -qq
+# RUN sudo apt-get install -y \
+
+	
 
 # Install application source
 RUN mkdir /home/rails/my-app
@@ -41,17 +37,15 @@ ONBUILD COPY . /home/rails/my-app
 ONBUILD RUN sudo chown -R rails /home/rails/my-app  
 
 # Install gems with binstubs 
-ONBUILD RUN \
- 	bundle install --without nothing && \
- 	bundle binstubs unicorn && \
- 	rbenv rehash && \
-    RAILS_ENV=production bundle exec rake assets:precompile --trace
+# ONBUILD RUN \
+#  	bundle binstubs unicorn && \
+#  	rbenv rehash 
 
 # Configure unicorn
 COPY unicorn.rb /etc/my-app/unicorn.rb
 COPY unicorn_init.sh /etc/init.d/unicorn
 
-# Add entrypoint script TODO change to say setup
+# Add default setup script
 COPY setup.sh /etc/my-app/setup.sh
 
 # Set environment variables

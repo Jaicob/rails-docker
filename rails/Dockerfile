@@ -15,7 +15,26 @@ RUN \
 
 # Install some dependencies
 RUN apt-get update
-RUN apt-get install -y git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties
+RUN apt-get install -y  build-essential \
+                        curl \
+                        git-core \
+                        imagemagick \
+                        libssl-dev \
+                        libreadline-dev \
+                        libyaml-dev \
+                        libsqlite3-dev \
+                        libxml2-dev \
+                        libxslt1-dev \
+                        libcurl4-openssl-dev \
+                        libqt4-dev \
+                        libxml2-dev \
+                        libxslt1-dev \
+                        libmagickcore-dev \
+                        libmagickwand-dev \
+                        python-software-properties \
+                        sqlite3 \
+                        zlib1g-dev 
+
 
 # Add a non-root user with sudo abilities
 RUN \
@@ -62,7 +81,7 @@ RUN \
     sudo apt-get install -y software-properties-common && \
     sudo add-apt-repository ppa:chris-lea/node.js && \
     sudo apt-get update && \
-    sudo apt-get install -y nodejs  
+    sudo apt-get install -y nodejs 
   
 # Install Rails
 RUN gem install rails --version=4.2.1
