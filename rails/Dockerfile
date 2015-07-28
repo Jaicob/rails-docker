@@ -14,6 +14,7 @@ RUN \
     rm -rf /var/lib/apt/lists/* 
 
 # Install some dependencies
+RUN apt-add-repository ppa:ubuntu-sdk-team/ppa
 RUN apt-get update
 RUN apt-get install -y  build-essential \
                         curl \
@@ -26,14 +27,17 @@ RUN apt-get install -y  build-essential \
                         libxml2-dev \
                         libxslt1-dev \
                         libcurl4-openssl-dev \
-                        libqt4-dev \
                         libxml2-dev \
                         libxslt1-dev \
                         libmagickcore-dev \
                         libmagickwand-dev \
                         python-software-properties \
                         sqlite3 \
-                        zlib1g-dev 
+                        zlib1g-dev \
+                        qt5-default \
+                        libqt5webkit5-dev \
+                        qtdeclarative5-dev \
+                        g++
 
 
 # Add a non-root user with sudo abilities
