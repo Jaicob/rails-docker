@@ -1,11 +1,11 @@
-FROM jaicob/rails-nginx-unicorn:onbuild
-MAINTAINER jaicob(jaicob@icloud.com)
+FROM pendragondev/rails-docker
+MAINTAINER jordan(jordan@getvitaminc.com)
 
 # Switch to the location the app is run out of
-WORKDIR /home/rails/my-app 
+WORKDIR /home/rails/my-app
 
 # Place custom unicorn configs here
-ADD config/unicorn.rb /etc/my-app/config/unicorn.rb				
+# ADD config/unicorn.rb /etc/my-app/config/unicorn.rb
 # ADD unicorn_init.sh /etc/init.d/unicorn
 
 # Place custom nginx configs here
@@ -17,7 +17,7 @@ ADD config/unicorn.rb /etc/my-app/config/unicorn.rb
 
 # Run setup script. This sets up the tmp folder and symlinks it to shared
 # as well as sets up the database if necessary
-RUN /etc/my-app/setup.sh
+# RUN /etc/my-app/setup.sh
 
 # Expose port 80
 EXPOSE 80

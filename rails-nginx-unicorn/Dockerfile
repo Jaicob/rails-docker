@@ -1,5 +1,5 @@
-FROM jaicob/rails:base
-MAINTAINER jaicob(jaicob@icloud.com)
+FROM pendragondev/rails
+MAINTAINER jordan(jordan@getvitaminc.com)
 
 # Install basics and postgres
 RUN \
@@ -8,7 +8,7 @@ RUN \
     sudo apt-get install -y libpq-dev
 
 # Install supervisor
-RUN sudo apt-get install -y supervisor 
+RUN sudo apt-get install -y supervisor
 
 # Configure supervisor
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
@@ -31,14 +31,13 @@ RUN sudo apt-get install -y libxml2-dev libxslt1-dev
 RUN mkdir /home/rails/my-app
 WORKDIR /home/rails/my-app
 ONBUILD COPY . /home/rails/my-app
-ONBUILD RUN sudo chown -R rails /home/rails/my-app  
+ONBUILD RUN sudo chown -R rails /home/rails/my-app
 
-# Install gems with binstubs 
-ONBUILD RUN \
- 	bundle install && \
- 	bundle binstubs unicorn && \
- 	rbenv rehash && \
-    RAILS_ENV=production bundle exec rake assets:precompile --trace
+# Install gems with binstubs
+#ONBUILD RUN \
+#  rbenv install 2.2.2 && \
+#  rbenv global 2.2.2 && \
+#  gem install rails
 
 # Configure unicorn
 COPY unicorn.rb /etc/my-app/unicorn.rb
@@ -48,7 +47,7 @@ COPY unicorn_init.sh /etc/init.d/unicorn
 COPY setup.sh /etc/my-app/setup.sh
 
 # Set environment variables
-ENV RAILS_ENV production
+ENV RAILS_ENV development
 
 # Expose port 80
 EXPOSE 80

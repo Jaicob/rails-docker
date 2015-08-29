@@ -1,6 +1,6 @@
 # Pull base image.
 FROM ubuntu:14.04
-MAINTAINER jaicob(jaicob@icloud.com)
+MAINTAINER jordan(jordan@getvitaminc.com)
 
 # Install basics.
 RUN \
