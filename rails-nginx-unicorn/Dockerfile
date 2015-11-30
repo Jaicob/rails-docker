@@ -24,22 +24,11 @@ RUN \
 COPY nginx-app-site.conf /etc/nginx/sites-enabled/default
 COPY nginx.conf /etc/nginx/nginx.conf
 
-# For external libraries
-# RUN sudo apt-get update -qq
-# RUN sudo apt-get install -y \
-
-	
-
 # Install application source
 RUN mkdir /home/rails/my-app
 WORKDIR /home/rails/my-app
 ONBUILD COPY . /home/rails/my-app
 ONBUILD RUN sudo chown -R rails /home/rails/my-app  
-
-# Install gems with binstubs 
-# ONBUILD RUN \
-#  	bundle binstubs unicorn && \
-#  	rbenv rehash 
 
 # Configure unicorn
 COPY unicorn.rb /etc/my-app/unicorn.rb
@@ -50,9 +39,3 @@ COPY setup.sh /etc/my-app/setup.sh
 
 # Set environment variables
 ENV RAILS_ENV production
-
-# Expose port 80
-EXPOSE 80
-
-
-

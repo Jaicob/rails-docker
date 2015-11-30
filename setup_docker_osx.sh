@@ -1,5 +1,7 @@
 #!/bin/sh
 brew update
+brew install brew-cask
+brew cask install virtualbox
 brew install boot2docker
 boot2docker init
 boot2docker up
