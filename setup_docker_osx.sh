@@ -1,3 +1,4 @@
+# THIS IS OLD AND NEEDS TO BE UDATED TO USE DOCKER TOOLBOX!
 #!/bin/sh
 brew update
 brew install brew-cask
